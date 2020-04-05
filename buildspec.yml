@@ -5,12 +5,12 @@ phases:
       - "echo Build started on `date`"
       - "echo Building the Docker image..."
       - "docker build -t mahammadism/new_app:latest ."
-      - "docker tag mahammadism/new_app:latest mahammadism/new_app:latest"
+      - "docker tag mahammadism/nodeapp3:latest mahammadism/nodeapp3:latest"
   post_build:
     commands:
       - "echo Build completed on `date`"
       - "echo Pushing the Docker image..."
-      - "docker push mahammadism/new_app:latest"
+      - "docker push mahammadism/nodeapp3:latest"
   pre_build:
     commands:
       - "echo Logging in to Docker Hub..."

@@ -14,13 +14,7 @@ post_build:
       - echo "Analysis complete"
       - if  ; then anchore-cli evaluate check mahammadism/new_app:latest  ; fi
       - echo "Pushing image to Docker Hub"
-      - docker push mahammadism/new_app:
-  post_build:
-    commands:
-      - echo Build completed on `date`
-      - echo Pushing the Docker images...
-      - docker push $REPOSITORY_URI:latest
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker push mahammadism/new_app:latest
       - echo Writing image definitions file...
       - printf '[{"name":"nodeapp","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - cat imagedefinitions.json 

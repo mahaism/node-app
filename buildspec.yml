@@ -5,9 +5,8 @@ phases:
   build:
     commands:
       - docker build -t mahammadism/new_app .
-      - docker push mahammadism/new_app
-	 	  
-	post_build:
+      - docker push mahammadism/new_app  
+post_build:
     commands:
       - anchore-cli image add mahammadism/new_app:latest
       - echo "Waiting for image to finish analysis"

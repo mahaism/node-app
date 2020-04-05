@@ -1,22 +1,18 @@
-version: 0.2
-
-
+---
 phases:
   build:
     commands:
-      - docker build -t mahammadism/new_app .
-      - docker push mahammadism/new_app  
-post_build:
+      - "echo Build started on `date`"
+      - "echo Building the Docker image..."
+      - "docker build -t mahammadism/new_app:latest ."
+      - "docker tag mahammadism/new_app:latest mahammadism/new_app:latest"
+  post_build:
     commands:
-      - anchore-cli image add mahammadism/new_app:latest
-      - echo "Waiting for image to finish analysis"
-      - anchore-cli image wait mahammadism/new_app:latest
-      - echo "Analysis complete"
-      - if  ; then anchore-cli evaluate check mahammadism/new_app:latest  ; fi
-      - echo "Pushing image to Docker Hub"
-      - docker push mahammadism/new_app:latest
-      - echo Writing image definitions file...
-      - printf '[{"name":"nodeapp","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
-      - cat imagedefinitions.json 
-artifacts:
-    files: imagedefinitions.json
+      - "echo Build completed on `date`"
+      - "echo Pushing the Docker image..."
+      - "docker push mahammadism/new_app:latest"
+  pre_build:
+    commands:
+      - "echo Logging in to Docker Hub..."
+      - "docker login --username=\"mahammadism\" --password=\"ismail@1985\""
+version: 0.1
